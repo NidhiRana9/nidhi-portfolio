@@ -1,12 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FileText, ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 }
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 }
   }
 };
 
@@ -34,52 +34,53 @@ export default function Hero() {
             animate="visible"
             className="w-full lg:w-3/5"
           >
-            <motion.div variants={itemVariants} className="inline-block px-4 py-2 border border-white/10 rounded-full bg-card/30 backdrop-blur-md mb-8 shadow-2xl hover:bg-card/50 transition-all duration-500">
-              <span className="text-text-sec text-xs md:text-sm font-mono tracking-widest uppercase flex items-center gap-2">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-main opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-main"></span>
+            {/* Glassmorphism Wrapper for Text */}
+            <motion.div 
+              variants={itemVariants}
+              className="bg-[#0A0A0B]/40 backdrop-blur-2xl border border-white/5 p-8 md:p-12 rounded-[2.5rem] shadow-[0_8px_32px_rgba(0,0,0,0.3)] relative overflow-hidden group"
+            >
+              {/* Subtle animated gradient glow inside the card */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-accent-main/10 rounded-full blur-[80px] -z-10 group-hover:bg-accent-main/20 transition-colors duration-700"></div>
+
+              <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-heading font-extrabold text-text-main mb-6 leading-tight tracking-tight">
+                Hi, I’m <br/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-main via-cyan-300 to-purple-400 tracking-wider relative inline-block">
+                  Nidhi Rana
+                  <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-accent-main to-transparent rounded-full opacity-50"></span>
                 </span>
-                Available for Engineering Roles
-              </span>
-            </motion.div>
+              </motion.h1>
 
-            <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-heading font-extrabold text-text-main mb-6 leading-tight tracking-tight">
-              Hello , I Am <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-main to-purple-400 tracking-wider">
-                Nidhi Rana
-              </span>
-            </motion.h1>
+              <motion.h2 variants={itemVariants} className="text-xl md:text-2xl text-text-main font-medium mb-4 leading-relaxed tracking-wide">
+                I build modern, interactive web experiences and explore AI-driven solutions.
+              </motion.h2>
 
-            <motion.p variants={itemVariants} className="text-base md:text-lg text-text-sec max-w-2xl mb-12 leading-relaxed font-light">
-              I am a driven Data Engineer and AI Specialist dedicated to building resilient machine learning pipelines, scalable data architectures, and intelligent software systems capable of analyzing complex, high-velocity datasets to deliver exceptional strategic insights.
-            </motion.p>
+              <motion.p variants={itemVariants} className="text-base md:text-lg text-text-sec mb-6 leading-relaxed font-light max-w-xl">
+                BTech student focused on creating interfaces that feel alive and impactful.
+              </motion.p>
 
-            <motion.p variants={itemVariants} className="text-sm md:text-md text-text-main font-semibold mb-10 flex items-center gap-2">
-              <ArrowRight size={18} className="text-accent-main" />
-              Open to Internships, AI/ML Projects & Industry Collaborations
-            </motion.p>
+              <motion.p variants={itemVariants} className="text-sm md:text-sm text-accent-main font-bold tracking-widest uppercase mb-10 block">
+                Turning ideas into real experiences.
+              </motion.p>
 
-            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-6">
-              <motion.a 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                href="/resume.pdf" 
-                target="_blank"
-                rel="noreferrer"
-                className="group px-8 py-4 bg-text-main text-background font-bold text-xs tracking-widest uppercase rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.1)] flex items-center gap-3 transition-colors hover:bg-text-sec"
-              >
-                <FileText size={18} /> Download Portfolio Resume
-              </motion.a>
-              
-              <motion.a 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                href="#projects" 
-                className="px-8 py-4 bg-card/30 backdrop-blur-md border border-white/10 text-text-main font-bold text-xs tracking-widest uppercase rounded-xl transition-all duration-300 hover:border-accent-main hover:bg-card/50 text-center shadow-2xl"
-              >
-                Explore Projects
-              </motion.a>
+              <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4">
+                <motion.a 
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  href="#projects" 
+                  className="px-8 py-4 bg-gradient-to-r from-accent-main to-cyan-500 text-[#050505] font-bold text-sm tracking-widest uppercase rounded-full shadow-[0_0_20px_rgba(6,182,212,0.3)] flex items-center gap-2 transition-all duration-300 hover:shadow-[0_0_35px_rgba(6,182,212,0.5)]"
+                >
+                  View Projects <ArrowRight size={18} />
+                </motion.a>
+                
+                <motion.a 
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  href="#contact" 
+                  className="px-8 py-4 bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold text-sm tracking-widest uppercase rounded-full transition-all duration-300 hover:border-accent-main/50 hover:bg-white/10 text-center shadow-xl"
+                >
+                  Contact Me
+                </motion.a>
+              </motion.div>
             </motion.div>
           </motion.div>
 
@@ -119,6 +120,18 @@ export default function Hero() {
 
         </div>
       </div>
+
+      {/* Floating Scroll Indicator */}
+      <motion.div 
+        animate={{ y: [0, 10, 0] }}
+        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+      >
+        <a href="#about" className="flex flex-col items-center justify-center text-text-sec hover:text-accent-main transition-colors duration-300 cursor-pointer group">
+          <span className="text-[10px] uppercase tracking-[0.2em] mb-2 opacity-50 group-hover:opacity-100 transition-opacity">Scroll</span>
+          <ChevronDown size={24} className="opacity-70 group-hover:opacity-100" />
+        </a>
+      </motion.div>
     </section>
   );
 }
