@@ -38,7 +38,9 @@ export default function Training() {
                 whileInView={{ opacity: 1, scale: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="bg-card rounded-2xl border border-border p-8 flex flex-col md:flex-row gap-8 hover:border-accent-main transition-colors duration-500 shadow-md group relative overflow-hidden"
+                whileHover={{ y: -5, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-card/30 backdrop-blur-xl rounded-3xl border border-white/5 p-8 flex flex-col md:flex-row gap-8 hover:bg-card/50 hover:border-accent-main/40 transition-all duration-500 shadow-2xl group relative overflow-hidden"
               >
                 {/* Background Accent Glow on Hover */}
                 <div className="absolute inset-0 bg-accent-main/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
@@ -63,7 +65,7 @@ export default function Training() {
 
                    <div className="mt-auto flex flex-wrap gap-2">
                      {item.tags.map((tag, tIdx) => (
-                        <span key={tIdx} className="px-3 py-1 bg-background border border-border rounded-full text-text-sec text-xs font-bold tracking-wider uppercase group-hover:border-accent-main/30 transition-colors">
+                        <span key={tIdx} className="px-3 py-1 bg-background/50 backdrop-blur-sm border border-white/10 rounded-full text-text-sec text-xs font-bold tracking-wider uppercase group-hover:border-accent-main/30 transition-colors">
                           {tag}
                         </span>
                      ))}

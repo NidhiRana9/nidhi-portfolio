@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion, useScroll, useSpring } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -17,8 +18,20 @@ import WhyHireMe from './components/WhyHireMe'
 import NetworkBackground from './components/NetworkBackground'
 
 function App() {
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  })
+
   return (
     <div className="bg-background text-text-main min-h-screen selection:bg-accent-main/30 selection:text-text-main font-sans relative">
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 origin-left bg-gradient-to-r from-accent-main to-purple-500 z-[100]"
+        style={{ scaleX }}
+      />
+      
       <NetworkBackground />
       <CustomCursor />
       <Navbar />

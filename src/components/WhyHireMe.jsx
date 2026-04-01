@@ -27,7 +27,7 @@ const REASONS = [
 
 export default function WhyHireMe() {
   return (
-    <section className="py-24 relative bg-card transition-colors duration-300 border-t border-border">
+    <section className="py-24 relative transition-colors duration-300 border-t border-border z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
            initial={{ opacity: 0, y: 20 }}
@@ -48,13 +48,15 @@ export default function WhyHireMe() {
                key={i}
                initial={{ opacity: 0, scale: 0.95 }}
                whileInView={{ opacity: 1, scale: 1 }}
+               whileHover={{ y: -8, scale: 1.02 }}
+               whileTap={{ scale: 0.98 }}
                viewport={{ once: true }}
                transition={{ duration: 0.4, delay: i * 0.1 }}
-               className="bg-card border border-border p-8 rounded-2xl hover:border-accent-main hover:shadow-[0_0_30px_rgba(6,182,212,0.05)] transition-all duration-500"
+               className="bg-card/30 backdrop-blur-xl border border-white/5 p-8 rounded-3xl hover:bg-card/50 hover:border-accent-main/40 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] transition-all duration-500 shadow-2xl"
              >
                {r.icon}
-               <h4 className="text-xl font-bold text-text-main mb-3">{r.title}</h4>
-               <p className="text-text-sec text-sm leading-relaxed">{r.description}</p>
+               <h4 className="text-xl font-bold text-text-main mb-3 font-heading">{r.title}</h4>
+               <p className="text-text-sec text-sm leading-relaxed font-light">{r.description}</p>
              </motion.div>
           ))}
         </div>

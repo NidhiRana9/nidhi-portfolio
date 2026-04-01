@@ -29,11 +29,13 @@ export default function Certificates() {
             {CERTIFICATES.map((cert, i) => (
               <motion.div 
                 key={i} 
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="bg-card rounded-xl border border-border p-5 flex flex-col hover:border-accent-main hover:-translate-y-1 transition-all duration-300"
+                whileHover={{ y: -5, scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-card/30 backdrop-blur-xl rounded-3xl border border-white/5 p-6 flex flex-col hover:bg-card/50 hover:border-accent-main/50 transition-all duration-500 shadow-2xl group"
               >
                 {/* Image Holder with Padding (Matching Screenshot) */}
                 <div className="w-full aspect-[4/3] bg-white rounded-lg border border-slate-700 overflow-hidden relative p-2 mb-6 flex items-center justify-center">
@@ -57,9 +59,16 @@ export default function Certificates() {
                    <p className="text-text-sec text-sm font-medium mb-6">{cert.org}</p>
                    
                    {/* Accessible View Link Button pointing to image path */}
-                   <a href={cert.imagePath} target="_blank" rel="noreferrer" className="mt-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-text-main text-background hover:bg-text-sec transition-colors w-max text-sm font-semibold">
+                   <motion.a 
+                     whileHover={{ scale: 1.05 }}
+                     whileTap={{ scale: 0.95 }}
+                     href={cert.imagePath} 
+                     target="_blank" 
+                     rel="noreferrer" 
+                     className="mt-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-text-main text-background hover:bg-text-sec transition-all duration-300 w-max text-sm font-bold tracking-wide shadow-xl"
+                   >
                      View Certificate <ExternalLink size={16} />
-                   </a>
+                   </motion.a>
                 </div>
               </motion.div>
             ))}

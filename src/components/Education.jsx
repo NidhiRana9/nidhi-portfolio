@@ -31,19 +31,23 @@ export default function Education() {
             >
               <div className="absolute left-[-37px] md:left-auto md:right-[-9px] top-6 w-4 h-4 rounded-full bg-accent-blue shadow-[0_0_15px_rgba(0,240,255,0.7)] z-10"></div>
               
-              <div className="bg-[#111113] p-8 rounded-2xl border border-[#1F1F22] hover:border-accent-blue/30 transition-colors">
+              <motion.div 
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-card/30 backdrop-blur-xl p-8 rounded-3xl border border-white/5 hover:bg-card/50 hover:border-accent-blue/40 transition-all duration-500 shadow-2xl"
+              >
                 <div className="flex flex-col md:items-end mb-4">
-                  <span className="inline-block px-3 py-1 bg-accent-blue/10 text-accent-blue rounded-md text-xs font-bold font-mono tracking-widest mb-2">
+                  <span className="inline-block px-3 py-1 bg-accent-blue/10 border border-accent-blue/20 text-accent-blue rounded-full text-xs font-bold font-mono tracking-widest mb-3 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
                     Aug '23 - Present
                   </span>
                   <h3 className="text-2xl font-bold text-white mb-1 font-heading">BTech Computer Science & Engineering</h3>
-                  <h4 className="text-lg text-slate-400 font-medium">Lovely Professional University | Punjab, India</h4>
+                  <h4 className="text-lg text-slate-400 font-medium tracking-wide">Lovely Professional University | Punjab, India</h4>
                 </div>
-                <p className="text-slate-500 leading-relaxed text-sm">
+                <p className="text-slate-400 leading-relaxed text-sm font-light">
                   Focused on core computer science subjects with a specialization in Artificial Intelligence, Machine Learning, and Data Engineering.<br/><br/>
-                  <strong className="text-slate-300">CGPA: 7.1</strong>
+                  <strong className="text-white font-bold tracking-wider">CGPA: 7.1</strong>
                 </p>
-              </div>
+              </motion.div>
             </motion.div>
 
             {/* Intermediate */}
@@ -56,18 +60,22 @@ export default function Education() {
             >
               <div className="absolute left-[-37px] md:left-[-9px] top-6 w-4 h-4 rounded-full bg-accent-purple shadow-[0_0_15px_rgba(138,43,226,0.7)] z-10"></div>
               
-              <div className="bg-[#111113] p-8 rounded-2xl border border-[#1F1F22] hover:border-accent-purple/30 transition-colors">
+              <motion.div 
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-card/30 backdrop-blur-xl p-8 rounded-3xl border border-white/5 hover:bg-card/50 hover:border-accent-purple/40 transition-all duration-500 shadow-2xl"
+              >
                 <div className="flex flex-col md:items-start mb-4">
-                  <span className="inline-block px-3 py-1 bg-accent-purple/10 text-accent-purple rounded-md text-xs font-bold font-mono tracking-widest mb-2">
+                  <span className="inline-block px-3 py-1 bg-accent-purple/10 border border-accent-purple/20 text-accent-purple rounded-full text-xs font-bold font-mono tracking-widest mb-3 shadow-[0_0_10px_rgba(138,43,226,0.1)]">
                     Apr '22 - Mar '23
                   </span>
                   <h3 className="text-xl font-bold text-white mb-1 font-heading">Intermediate</h3>
-                  <h4 className="text-base text-slate-400 font-medium">Kendriya Vidyalaya D.G.Q.A | Chennai, TN</h4>
+                  <h4 className="text-base text-slate-400 font-medium tracking-wide">Kendriya Vidyalaya D.G.Q.A | Chennai, TN</h4>
                 </div>
-                <p className="text-slate-500 leading-relaxed text-sm">
-                  <strong className="text-slate-300">Percentage: 74%</strong>
+                <p className="text-slate-400 leading-relaxed text-sm font-light">
+                  <strong className="text-white font-bold tracking-wider">Percentage: 74%</strong>
                 </p>
-              </div>
+              </motion.div>
             </motion.div>
 
             {/* Matriculation */}
@@ -80,18 +88,22 @@ export default function Education() {
             >
               <div className="absolute left-[-37px] md:left-auto md:right-[-9px] top-6 w-4 h-4 rounded-full bg-accent-blue shadow-[0_0_15px_rgba(0,240,255,0.7)] z-10"></div>
               
-              <div className="bg-[#111113] p-8 rounded-2xl border border-[#1F1F22] hover:border-accent-blue/30 transition-colors">
+              <motion.div 
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-card/30 backdrop-blur-xl p-8 rounded-3xl border border-white/5 hover:bg-card/50 hover:border-accent-blue/40 transition-all duration-500 shadow-2xl"
+              >
                 <div className="flex flex-col md:items-end mb-4">
-                  <span className="inline-block px-3 py-1 bg-accent-blue/10 text-accent-blue rounded-md text-xs font-bold font-mono tracking-widest mb-2">
+                  <span className="inline-block px-3 py-1 bg-accent-blue/10 border border-accent-blue/20 text-accent-blue rounded-full text-xs font-bold font-mono tracking-widest mb-3 shadow-[0_0_10px_rgba(0,240,255,0.1)]">
                     Apr '20 - Mar '21
                   </span>
                   <h3 className="text-xl font-bold text-white mb-1 font-heading">Matriculation</h3>
-                  <h4 className="text-base text-slate-400 font-medium">Kendriya Vidyalaya D.G.Q.A | Chennai, TN</h4>
+                  <h4 className="text-base text-slate-400 font-medium tracking-wide">Kendriya Vidyalaya D.G.Q.A | Chennai, TN</h4>
                 </div>
-                <p className="text-slate-500 leading-relaxed text-sm">
-                  <strong className="text-slate-300">Percentage: 90%</strong>
+                <p className="text-slate-400 leading-relaxed text-sm font-light">
+                  <strong className="text-white font-bold tracking-wider">Percentage: 90%</strong>
                 </p>
-              </div>
+              </motion.div>
             </motion.div>
 
           </div>

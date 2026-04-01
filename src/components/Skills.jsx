@@ -68,9 +68,11 @@ export default function Skills() {
                         key={sIdx}
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
+                        whileHover={{ y: -3, scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.3, delay: sIdx * 0.05 + idx * 0.1 }}
-                        className="px-6 py-3 bg-card border border-border text-text-sec rounded-full font-medium hover:text-text-main hover:border-accent-main hover:-translate-y-1 transition-all duration-300"
+                        className="px-6 py-3 bg-card/30 backdrop-blur-md border border-white/10 text-text-sec rounded-full font-medium hover:text-text-main hover:border-accent-main/50 hover:bg-card/50 shadow-lg transition-all duration-300"
                       >
                         {skill}
                       </motion.div>
@@ -85,15 +87,17 @@ export default function Skills() {
                           key={sIdx}
                           initial={{ opacity: 0, scale: 0.8 }}
                           whileInView={{ opacity: 1, scale: 1 }}
+                          whileHover={{ y: -5, scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                           viewport={{ once: true }}
                           transition={{ duration: 0.4, delay: sIdx * 0.05 + idx * 0.1 }}
                           className="group flex flex-col items-center gap-4 w-28"
                         >
-                          <div className="w-20 h-20 rounded-2xl bg-card border border-border flex items-center justify-center group-hover:border-accent-main transition-all duration-500 p-4">
+                          <div className="w-20 h-20 rounded-3xl bg-card/30 backdrop-blur-xl border border-white/5 flex items-center justify-center group-hover:border-accent-main/50 group-hover:bg-card/50 transition-all duration-500 p-4 shadow-2xl">
                             {iconSrc ? (
                               <img src={iconSrc} alt={`${skill} icon`} className="w-full h-full object-contain filter group-hover:brightness-110 transition-all" />
                             ) : (
-                              <div className="w-8 h-8 rounded bg-border"></div>
+                              <div className="w-8 h-8 rounded bg-white/10"></div>
                             )}
                           </div>
                           <span className="text-sm font-medium text-text-sec group-hover:text-text-main transition-colors text-center w-full">

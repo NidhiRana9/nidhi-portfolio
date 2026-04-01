@@ -55,7 +55,9 @@ export default function Projects() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-card rounded-3xl p-6 border border-border flex flex-col hover:border-accent-main hover:shadow-[0_0_30px_rgba(6,182,212,0.05)] transition-all duration-500"
+                whileHover={{ y: -8, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-card/30 backdrop-blur-xl rounded-3xl p-8 border border-white/5 flex flex-col hover:bg-card/50 hover:border-accent-main/50 hover:shadow-[0_0_40px_rgba(6,182,212,0.15)] transition-all duration-500 shadow-2xl group"
               >
                 {/* Image Block */}
                 <div className="w-full aspect-video rounded-xl bg-[#050505] overflow-hidden mb-6 border border-border">
@@ -94,9 +96,16 @@ export default function Projects() {
                   </div>
                   
                   <div className="mt-auto">
-                    <a href={project.githubLink} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 px-8 py-3.5 rounded-lg bg-text-main text-background hover:bg-text-sec font-bold transition-colors w-max shadow-md hover:shadow-lg">
+                    <motion.a 
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      href={project.githubLink} 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      className="flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-text-main text-background hover:bg-text-sec font-bold transition-all duration-300 w-max shadow-xl hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                    >
                       Explore Architecture
-                    </a>
+                    </motion.a>
                   </div>
                 </div>
               </motion.div>
