@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Linkedin, Github, Send, Loader2, CheckCircle2, XCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState('idle'); // 'idle', 'submitting', 'success', 'error'
+  const [status, setStatus] = useState('idle');
+  const formRef = useRef();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -14,38 +15,23 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Simple validation
-    if (!formData.name || !formData.email || !formData.message) {
-      return;
-    }
+    if (!formData.name || !formData.email || !formData.message) return;
 
     setStatus('submitting');
 
     try {
-      console.log("Initiating EmailJS transmission...");
-
-      // USER NOTE: Replace these 3 parameters with your actual EmailJS keys!
       const serviceID = 'service_vm2kb3o';
       const templateID = 'template_8pcox1l';
       const publicKey = 'gLJbMy7nKryD1KTEY';
 
-      const templateParams = {
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-        reply_to: formData.email,
-      };
-
-      console.log("Payload:", templateParams);
-
-      const response = await emailjs.send(
+      await emailjs.sendForm(
         serviceID,
         templateID,
-        templateParams,
+        formRef.current,
         publicKey
       );
 
-      console.log("SUCCESS", response);
+      console.log("SUCCESS");
       setStatus('success');
       setFormData({ name: '', email: '', message: '' });
 
@@ -54,202 +40,78 @@ export default function Contact() {
       setStatus('error');
     }
 
-    // Reset status back to idle after 5 seconds to clear toasts
-    setTimeout(() => {
-      setStatus('idle');
-    }, 5000);
+    setTimeout(() => setStatus('idle'), 5000);
   };
 
   return (
     <section id="contact" className="py-24 relative border-t border-border transition-colors duration-300 z-10">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
+
+        <div className="text-center mb-16">
           <h2 className="text-accent-main font-semibold mb-4 tracking-widest uppercase text-sm">Get in Touch</h2>
           <h3 className="text-4xl md:text-5xl font-heading font-bold text-text-main mb-6">Let's Connect</h3>
           <p className="text-text-sec max-w-xl mx-auto leading-relaxed">
-            I'm currently looking for new opportunities in ML, AI, and Data Engineering. Whether you have a project in mind, a question, or just want to say hi, I'll try my best to get back to you!
+            I'm currently looking for new opportunities in ML, AI, and Data Engineering.
           </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Social Links & Info - Fully Clickable Cards */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-col justify-center space-y-6"
-          >
-            <motion.a
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              href="mailto:nidhirana929@gmail.com"
-              className="flex items-center gap-6 group bg-card/30 backdrop-blur-xl p-6 rounded-3xl border border-white/5 hover:border-accent-main/40 hover:bg-card/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.1)] transition-all duration-500 cursor-pointer shadow-2xl"
-            >
-              <div className="w-14 h-14 rounded-full bg-background/50 border border-white/10 flex items-center justify-center group-hover:border-accent-main/50 transition-colors shadow-inner">
-                <Mail className="text-text-sec group-hover:text-accent-main transition-colors" size={22} />
-              </div>
-              <div>
-                <h4 className="text-text-main font-bold text-base mb-1">Email</h4>
-                <span className="text-text-sec text-sm group-hover:text-accent-main transition-colors">
-                  nidhirana929@gmail.com
-                </span>
-              </div>
-            </motion.a>
-
-            <motion.a
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              href="tel:+917888431735"
-              className="flex items-center gap-6 group bg-card/30 backdrop-blur-xl p-6 rounded-3xl border border-white/5 hover:border-accent-main/40 hover:bg-card/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.1)] transition-all duration-500 cursor-pointer shadow-2xl"
-            >
-              <div className="w-14 h-14 rounded-full bg-background/50 border border-white/10 flex items-center justify-center group-hover:border-accent-main/50 transition-colors shadow-inner">
-                <svg className="w-6 h-6 text-text-sec group-hover:text-accent-main transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-              </div>
-              <div>
-                <h4 className="text-text-main font-bold text-base mb-1">Phone</h4>
-                <span className="text-text-sec text-sm group-hover:text-accent-main transition-colors">
-                  +91 7888431735
-                </span>
-              </div>
-            </motion.a>
-
-            <motion.a
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              href="https://www.linkedin.com/in/nidhi-rana-56/"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-6 group bg-card/30 backdrop-blur-xl p-6 rounded-3xl border border-white/5 hover:border-[#0A66C2]/50 hover:bg-card/50 hover:shadow-[0_0_30px_rgba(10,102,194,0.15)] transition-all duration-500 cursor-pointer shadow-2xl"
-            >
-              <div className="w-14 h-14 rounded-full bg-background/50 border border-white/10 flex items-center justify-center group-hover:border-[#0A66C2]/50 transition-colors shadow-inner">
-                <Linkedin className="text-text-sec group-hover:text-[#0A66C2] transition-colors" size={22} />
-              </div>
-              <div>
-                <h4 className="text-text-main font-bold text-base mb-1">LinkedIn</h4>
-                <span className="text-text-sec text-sm group-hover:text-[#0A66C2] transition-colors">
-                  linkedin.com/in/nidhi-rana-56/
-                </span>
-              </div>
-            </motion.a>
-
-            <motion.a
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              href="https://github.com/NidhiRana9"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-6 group bg-card/30 backdrop-blur-xl p-6 rounded-3xl border border-white/5 hover:border-text-main/50 hover:bg-card/50 hover:shadow-[0_0_30px_rgba(255,255,255,0.05)] transition-all duration-500 cursor-pointer shadow-2xl"
-            >
-              <div className="w-14 h-14 rounded-full bg-background/50 border border-white/10 flex items-center justify-center group-hover:border-text-main/50 transition-colors shadow-inner">
-                <Github className="text-text-sec group-hover:text-text-main transition-colors" size={22} />
-              </div>
-              <div>
-                <h4 className="text-text-main font-bold text-base mb-1">GitHub</h4>
-                <span className="text-text-sec text-sm group-hover:text-text-main transition-colors">
-                  github.com/NidhiRana9
-                </span>
-              </div>
-            </motion.a>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.form
-            onSubmit={handleSubmit}
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="bg-card/30 backdrop-blur-xl p-10 rounded-3xl border border-white/5 shadow-2xl flex flex-col justify-between space-y-8 relative"
-          >
-            {/* Popups */}
-            <AnimatePresence>
-              {status === 'success' && (
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
-                  className="absolute -top-16 left-0 right-0 bg-green-500/10 border border-green-500/20 text-green-400 p-4 rounded-xl flex items-center justify-center gap-2 backdrop-blur-md shadow-lg"
-                >
-                  <CheckCircle2 size={18} /> Message sent! I’ll get back to you soon.
-                </motion.div>
-              )}
-              {status === 'error' && (
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
-                  className="absolute -top-16 left-0 right-0 bg-red-500/10 border border-red-500/20 text-red-500 p-4 rounded-xl flex items-center justify-center gap-2 backdrop-blur-md shadow-lg"
-                >
-                  <XCircle size={18} /> Something went wrong. Please try again.
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <div>
-              <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-text-sec mb-3">Your Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full bg-background/50 border border-white/10 rounded-2xl px-5 py-4 text-sm text-text-main focus:outline-none focus:border-accent-main/70 focus:bg-background/80 transition-all shadow-inner hover:border-white/20"
-                placeholder="Enter your name"
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-text-sec mb-3">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full bg-background/50 border border-white/10 rounded-2xl px-5 py-4 text-sm text-text-main focus:outline-none focus:border-accent-main/70 focus:bg-background/80 transition-all shadow-inner hover:border-white/20"
-                placeholder="Enter your email"
-              />
-            </div>
-            <div>
-              <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-text-sec mb-3">Your Message</label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows={4}
-                className="w-full bg-background/50 border border-white/10 rounded-2xl px-5 py-4 text-sm text-text-main focus:outline-none focus:border-accent-main/70 focus:bg-background/80 transition-all resize-none shadow-inner hover:border-white/20"
-                placeholder="Write your message here..."
-              ></textarea>
-            </div>
-            <motion.button
-              disabled={status === 'submitting'}
-              whileHover={{ scale: status === 'submitting' ? 1 : 1.02 }}
-              whileTap={{ scale: status === 'submitting' ? 1 : 0.98 }}
-              type="submit"
-              className="w-full group flex items-center justify-center gap-2 bg-text-main text-background hover:bg-text-sec transition-all px-8 py-4 rounded-xl font-bold text-sm tracking-widest uppercase shadow-xl disabled:opacity-70 disabled:cursor-not-allowed"
-            >
-              {status === 'submitting' ? (
-                <>
-                  <Loader2 size={18} className="animate-spin" />
-                  Sending...
-                </>
-              ) : (
-                <>
-                  <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  Send Message
-                </>
-              )}
-            </motion.button>
-          </motion.form>
         </div>
+
+        <motion.form
+          ref={formRef}   // ✅ IMPORTANT
+          onSubmit={handleSubmit}
+          className="bg-card/30 backdrop-blur-xl p-10 rounded-3xl border border-white/5 shadow-2xl flex flex-col space-y-8 relative"
+        >
+
+          <AnimatePresence>
+            {status === 'success' && (
+              <motion.div className="absolute -top-16 left-0 right-0 bg-green-500/10 border border-green-500/20 text-green-400 p-4 rounded-xl text-center">
+                Message sent! I’ll get back to you soon.
+              </motion.div>
+            )}
+            {status === 'error' && (
+              <motion.div className="absolute -top-16 left-0 right-0 bg-red-500/10 border border-red-500/20 text-red-500 p-4 rounded-xl text-center">
+                Something went wrong. Please try again.
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Enter your name"
+            className="p-4 rounded-xl bg-background/50"
+            required
+          />
+
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter your email"
+            className="p-4 rounded-xl bg-background/50"
+            required
+          />
+
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            placeholder="Write your message here..."
+            className="p-4 rounded-xl bg-background/50"
+            required
+          />
+
+          <button
+            type="submit"
+            disabled={status === 'submitting'}
+            className="bg-white text-black py-3 rounded-xl"
+          >
+            {status === 'submitting' ? 'Sending...' : 'Send Message'}
+          </button>
+
+        </motion.form>
       </div>
     </section>
   );
