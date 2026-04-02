@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Linkedin, Github, Send, Loader2, CheckCircle2, XCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -21,33 +22,34 @@ export default function Contact() {
     setStatus('submitting');
     
     try {
-      // Direct EmailJS REST API approach avoids needing npm dependencies
-      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          // USER: Replace these 3 variables with your EmailJS identifiers
-          service_id: 'YOUR_SERVICE_ID', 
-          template_id: 'YOUR_TEMPLATE_ID',
-          user_id: 'YOUR_PUBLIC_KEY',
-          template_params: {
-            from_name: formData.name,
-            from_email: formData.email,
-            message: formData.message,
-          }
-        }),
-      });
+      console.log("Initiating EmailJS transmission...");
+      
+      // USER NOTE: Replace these 3 parameters with your actual EmailJS keys!
+      const serviceID = 'YOUR_SERVICE_ID';
+      const templateID = 'YOUR_TEMPLATE_ID';
+      const publicKey = 'YOUR_PUBLIC_KEY';
 
-      if (response.ok) {
-        setStatus('success');
-        setFormData({ name: '', email: '', message: '' });
-      } else {
-        setStatus('error');
-      }
+      const templateParams = {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      };
+
+      console.log("Payload:", templateParams);
+
+      const response = await emailjs.send(
+        serviceID, 
+        templateID, 
+        templateParams,
+        publicKey
+      );
+
+      console.log('SUCCESS API Response:', response.status, response.text);
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      
     } catch (error) {
-      console.error(error);
+      console.error('FAILED API Error:', error);
       setStatus('error');
     }
 
@@ -174,7 +176,7 @@ export default function Contact() {
                   initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
                   className="absolute -top-16 left-0 right-0 bg-green-500/10 border border-green-500/20 text-green-400 p-4 rounded-xl flex items-center justify-center gap-2 backdrop-blur-md shadow-lg"
                 >
-                  <CheckCircle2 size={18} /> Message sent! I’ll get back to you soon.
+                  <CheckCircle2 size={18} /> Message Sent successfully, I will get back to you soon.
                 </motion.div>
               )}
               {status === 'error' && (

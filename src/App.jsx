@@ -12,7 +12,6 @@ import Resume from './components/Resume'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import CustomCursor from './components/CustomCursor'
-import ChatbotWidget from './components/ChatbotWidget'
 import AnimatedCounters from './components/AnimatedCounters'
 import WhyHireMe from './components/WhyHireMe'
 import NetworkBackground from './components/NetworkBackground'
@@ -51,7 +50,6 @@ function App() {
       </main>
 
       <Footer />
-      <ChatbotWidget />
     </div>
   )
 }
