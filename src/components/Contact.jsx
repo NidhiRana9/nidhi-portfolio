@@ -8,13 +8,33 @@ export default function Contact() {
     message: ''
   });
 
-  const [status, setStatus] = useState('idle'); // idle | success
+  const [status, setStatus] = useState('idle'); // idle | success | error
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // 🚨 stop redirect (MAIN FIX)
+
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        "form-name": "contact",
+        ...formData
+      }).toString()
+    })
+      .then(() => {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      })
+      .catch(() => {
+        setStatus('error');
+      });
   };
 
   return (
@@ -34,17 +54,14 @@ export default function Contact() {
           name="contact"
           method="POST"
           data-netlify="true"
-          action="/"
-          onSubmit={() => {
-            setStatus('success');
-            setFormData({ name: '', email: '', message: '' });
-          }}
+          onSubmit={handleSubmit}   // ✅ updated
           className="p-8 rounded-2xl border border-white/10 space-y-6 relative backdrop-blur-lg"
         >
-          {/* REQUIRED hidden input */}
+
+          {/* ✅ REQUIRED for Netlify */}
           <input type="hidden" name="form-name" value="contact" />
 
-          {/* Success Message */}
+          {/* Success / Error Message */}
           <AnimatePresence>
             {status === 'success' && (
               <motion.div
@@ -54,6 +71,17 @@ export default function Contact() {
                 className="text-green-400 text-center"
               >
                 ✅ Message delivered! I’ll get back to you soon.
+              </motion.div>
+            )}
+
+            {status === 'error' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="text-red-400 text-center"
+              >
+                ❌ Something went wrong. Try again.
               </motion.div>
             )}
           </AnimatePresence>
