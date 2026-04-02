@@ -13,21 +13,21 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Simple validation
     if (!formData.name || !formData.email || !formData.message) {
       return;
     }
 
     setStatus('submitting');
-    
+
     try {
       console.log("Initiating EmailJS transmission...");
-      
+
       // USER NOTE: Replace these 3 parameters with your actual EmailJS keys!
-      const serviceID = 'YOUR_SERVICE_ID';
-      const templateID = 'YOUR_TEMPLATE_ID';
-      const publicKey = 'YOUR_PUBLIC_KEY';
+      const serviceID = 'service_iwu3qav';
+      const templateID = 'template_8pcox1l';
+      const publicKey = 'gLJbMy7nKryD1KTEY';
 
       const templateParams = {
         name: formData.name,
@@ -38,18 +38,18 @@ export default function Contact() {
       console.log("Payload:", templateParams);
 
       const response = await emailjs.send(
-        serviceID, 
-        templateID, 
+        serviceID,
+        templateID,
         templateParams,
         publicKey
       );
 
-      console.log('SUCCESS API Response:', response.status, response.text);
+      console.log("SUCCESS", response);
       setStatus('success');
       setFormData({ name: '', email: '', message: '' });
-      
+
     } catch (error) {
-      console.error('FAILED API Error:', error);
+      console.error("FAILED", error);
       setStatus('error');
     }
 
@@ -63,11 +63,11 @@ export default function Contact() {
     <section id="contact" className="py-24 relative border-t border-border transition-colors duration-300 z-10">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           transition={{ duration: 0.5 }}
-           className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
         >
           <h2 className="text-accent-main font-semibold mb-4 tracking-widest uppercase text-sm">Get in Touch</h2>
           <h3 className="text-4xl md:text-5xl font-heading font-bold text-text-main mb-6">Let's Connect</h3>
@@ -78,17 +78,17 @@ export default function Contact() {
 
         <div className="grid md:grid-cols-2 gap-12">
           {/* Social Links & Info - Fully Clickable Cards */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex flex-col justify-center space-y-6"
           >
-            <motion.a 
+            <motion.a
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              href="mailto:nidhirana929@gmail.com" 
+              href="mailto:nidhirana929@gmail.com"
               className="flex items-center gap-6 group bg-card/30 backdrop-blur-xl p-6 rounded-3xl border border-white/5 hover:border-accent-main/40 hover:bg-card/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.1)] transition-all duration-500 cursor-pointer shadow-2xl"
             >
               <div className="w-14 h-14 rounded-full bg-background/50 border border-white/10 flex items-center justify-center group-hover:border-accent-main/50 transition-colors shadow-inner">
@@ -102,10 +102,10 @@ export default function Contact() {
               </div>
             </motion.a>
 
-            <motion.a 
+            <motion.a
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              href="tel:+917888431735" 
+              href="tel:+917888431735"
               className="flex items-center gap-6 group bg-card/30 backdrop-blur-xl p-6 rounded-3xl border border-white/5 hover:border-accent-main/40 hover:bg-card/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.1)] transition-all duration-500 cursor-pointer shadow-2xl"
             >
               <div className="w-14 h-14 rounded-full bg-background/50 border border-white/10 flex items-center justify-center group-hover:border-accent-main/50 transition-colors shadow-inner">
@@ -121,12 +121,12 @@ export default function Contact() {
               </div>
             </motion.a>
 
-            <motion.a 
+            <motion.a
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              href="https://www.linkedin.com/in/nidhi-rana-56/" 
-              target="_blank" 
-              rel="noreferrer" 
+              href="https://www.linkedin.com/in/nidhi-rana-56/"
+              target="_blank"
+              rel="noreferrer"
               className="flex items-center gap-6 group bg-card/30 backdrop-blur-xl p-6 rounded-3xl border border-white/5 hover:border-[#0A66C2]/50 hover:bg-card/50 hover:shadow-[0_0_30px_rgba(10,102,194,0.15)] transition-all duration-500 cursor-pointer shadow-2xl"
             >
               <div className="w-14 h-14 rounded-full bg-background/50 border border-white/10 flex items-center justify-center group-hover:border-[#0A66C2]/50 transition-colors shadow-inner">
@@ -140,12 +140,12 @@ export default function Contact() {
               </div>
             </motion.a>
 
-            <motion.a 
+            <motion.a
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              href="https://github.com/NidhiRana9" 
-              target="_blank" 
-              rel="noreferrer" 
+              href="https://github.com/NidhiRana9"
+              target="_blank"
+              rel="noreferrer"
               className="flex items-center gap-6 group bg-card/30 backdrop-blur-xl p-6 rounded-3xl border border-white/5 hover:border-text-main/50 hover:bg-card/50 hover:shadow-[0_0_30px_rgba(255,255,255,0.05)] transition-all duration-500 cursor-pointer shadow-2xl"
             >
               <div className="w-14 h-14 rounded-full bg-background/50 border border-white/10 flex items-center justify-center group-hover:border-text-main/50 transition-colors shadow-inner">
@@ -161,7 +161,7 @@ export default function Contact() {
           </motion.div>
 
           {/* Contact Form */}
-          <motion.form 
+          <motion.form
             onSubmit={handleSubmit}
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -172,15 +172,15 @@ export default function Contact() {
             {/* Popups */}
             <AnimatePresence>
               {status === 'success' && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
                   className="absolute -top-16 left-0 right-0 bg-green-500/10 border border-green-500/20 text-green-400 p-4 rounded-xl flex items-center justify-center gap-2 backdrop-blur-md shadow-lg"
                 >
-                  <CheckCircle2 size={18} /> Message Sent successfully, I will get back to you soon.
+                  <CheckCircle2 size={18} /> Message sent! I’ll get back to you soon.
                 </motion.div>
               )}
               {status === 'error' && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
                   className="absolute -top-16 left-0 right-0 bg-red-500/10 border border-red-500/20 text-red-500 p-4 rounded-xl flex items-center justify-center gap-2 backdrop-blur-md shadow-lg"
                 >
@@ -191,9 +191,9 @@ export default function Contact() {
 
             <div>
               <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-text-sec mb-3">Your Name</label>
-              <input 
-                type="text" 
-                id="name" 
+              <input
+                type="text"
+                id="name"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
@@ -204,9 +204,9 @@ export default function Contact() {
             </div>
             <div>
               <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-text-sec mb-3">Email Address</label>
-              <input 
-                type="email" 
-                id="email" 
+              <input
+                type="email"
+                id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
@@ -217,8 +217,8 @@ export default function Contact() {
             </div>
             <div>
               <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-text-sec mb-3">Your Message</label>
-              <textarea 
-                id="message" 
+              <textarea
+                id="message"
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
