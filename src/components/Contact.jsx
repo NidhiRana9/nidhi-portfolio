@@ -33,6 +33,7 @@ export default function Contact() {
         name: formData.name,
         email: formData.email,
         message: formData.message,
+        to_email: 'nidhirana929@gmail.com',
       };
 
       console.log("Payload:", templateParams);
