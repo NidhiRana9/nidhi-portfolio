@@ -21,7 +21,7 @@ export default function Certificates() {
           transition={{ duration: 0.5 }}
         >
           <div className="flex items-center gap-4 mb-12">
-            <h2 className="text-4xl md:text-5xl font-heading font-bold text-text-main">Certifications</h2>
+            <h2 className="text-4xl md:text-5xl font-heading font-bold text-text-main">Certificates</h2>
             <div className="hidden lg:block h-px bg-border flex-grow"></div>
           </div>
           

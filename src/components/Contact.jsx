@@ -1,8 +1,62 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Linkedin, Github, Send, MapPin } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mail, Linkedin, Github, Send, Loader2, CheckCircle2, XCircle } from 'lucide-react';
 
 export default function Contact() {
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState('idle'); // 'idle', 'submitting', 'success', 'error'
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Simple validation
+    if (!formData.name || !formData.email || !formData.message) {
+      return;
+    }
+
+    setStatus('submitting');
+    
+    try {
+      // Direct EmailJS REST API approach avoids needing npm dependencies
+      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          // USER: Replace these 3 variables with your EmailJS identifiers
+          service_id: 'YOUR_SERVICE_ID', 
+          template_id: 'YOUR_TEMPLATE_ID',
+          user_id: 'YOUR_PUBLIC_KEY',
+          template_params: {
+            from_name: formData.name,
+            from_email: formData.email,
+            message: formData.message,
+          }
+        }),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      console.error(error);
+      setStatus('error');
+    }
+
+    // Reset status back to idle after 5 seconds to clear toasts
+    setTimeout(() => {
+      setStatus('idle');
+    }, 5000);
+  };
+
   return (
     <section id="contact" className="py-24 relative border-t border-border transition-colors duration-300 z-10">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -106,17 +160,42 @@ export default function Contact() {
 
           {/* Contact Form */}
           <motion.form 
+            onSubmit={handleSubmit}
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="bg-card/30 backdrop-blur-xl p-10 rounded-3xl border border-white/5 shadow-2xl flex flex-col justify-between space-y-8"
+            className="bg-card/30 backdrop-blur-xl p-10 rounded-3xl border border-white/5 shadow-2xl flex flex-col justify-between space-y-8 relative"
           >
+            {/* Popups */}
+            <AnimatePresence>
+              {status === 'success' && (
+                <motion.div 
+                  initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
+                  className="absolute -top-16 left-0 right-0 bg-green-500/10 border border-green-500/20 text-green-400 p-4 rounded-xl flex items-center justify-center gap-2 backdrop-blur-md shadow-lg"
+                >
+                  <CheckCircle2 size={18} /> Message delivered! I’ll get back to you soon.
+                </motion.div>
+              )}
+              {status === 'error' && (
+                <motion.div 
+                  initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
+                  className="absolute -top-16 left-0 right-0 bg-red-500/10 border border-red-500/20 text-red-500 p-4 rounded-xl flex items-center justify-center gap-2 backdrop-blur-md shadow-lg"
+                >
+                  <XCircle size={18} /> Something went wrong. Please try again.
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             <div>
               <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-text-sec mb-3">Full Name</label>
               <input 
                 type="text" 
                 id="name" 
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
                 className="w-full bg-background/50 border border-white/10 rounded-xl px-5 py-4 text-sm text-text-main focus:outline-none focus:border-accent-main/50 focus:bg-background/80 transition-all shadow-inner"
                 placeholder="Industry Professional"
               />
@@ -126,6 +205,10 @@ export default function Contact() {
               <input 
                 type="email" 
                 id="email" 
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
                 className="w-full bg-background/50 border border-white/10 rounded-xl px-5 py-4 text-sm text-text-main focus:outline-none focus:border-accent-main/50 focus:bg-background/80 transition-all shadow-inner"
                 placeholder="inquiry@organization.com"
               />
@@ -134,19 +217,33 @@ export default function Contact() {
               <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-text-sec mb-3">Inquiry / Objective</label>
               <textarea 
                 id="message" 
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
                 rows={4}
                 className="w-full bg-background/50 border border-white/10 rounded-xl px-5 py-4 text-sm text-text-main focus:outline-none focus:border-accent-main/50 focus:bg-background/80 transition-all resize-none shadow-inner"
                 placeholder="State your technical requirements or operational inquiries here."
               ></textarea>
             </div>
             <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              type="button"
-              className="w-full group flex items-center justify-center gap-2 bg-text-main text-background hover:bg-text-sec transition-all px-8 py-4 rounded-xl font-bold text-sm tracking-widest uppercase shadow-xl"
+              disabled={status === 'submitting'}
+              whileHover={{ scale: status === 'submitting' ? 1 : 1.02 }}
+              whileTap={{ scale: status === 'submitting' ? 1 : 0.98 }}
+              type="submit"
+              className="w-full group flex items-center justify-center gap-2 bg-text-main text-background hover:bg-text-sec transition-all px-8 py-4 rounded-xl font-bold text-sm tracking-widest uppercase shadow-xl disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              Transmit Message
+              {status === 'submitting' ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" />
+                  Transmitting...
+                </>
+              ) : (
+                <>
+                  <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  Transmit Message
+                </>
+              )}
             </motion.button>
           </motion.form>
         </div>
