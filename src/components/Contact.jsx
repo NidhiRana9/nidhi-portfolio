@@ -34,6 +34,7 @@ export default function Contact() {
           name="contact"
           method="POST"
           data-netlify="true"
+          action="/"
           onSubmit={() => {
             setStatus('success');
             setFormData({ name: '', email: '', message: '' });
