@@ -67,10 +67,10 @@ export default function Contact() {
            transition={{ duration: 0.5 }}
            className="text-center mb-16"
         >
-          <h2 className="text-accent-main font-semibold mb-4 tracking-widest uppercase text-sm">Strategic Operations</h2>
-          <h3 className="text-4xl md:text-5xl font-heading font-bold text-text-main mb-6">Initiate Dialogue</h3>
+          <h2 className="text-accent-main font-semibold mb-4 tracking-widest uppercase text-sm">Get in Touch</h2>
+          <h3 className="text-4xl md:text-5xl font-heading font-bold text-text-main mb-6">Let's Connect</h3>
           <p className="text-text-sec max-w-xl mx-auto leading-relaxed">
-            I am actively evaluating new opportunities within Machine Learning, Artificial Intelligence, and Data Engineering. Whether you require technical consultation, project collaboration, or formal recruitment inquiries, my inbox remains open.
+            I'm currently looking for new opportunities in ML, AI, and Data Engineering. Whether you have a project in mind, a question, or just want to say hi, I'll try my best to get back to you!
           </p>
         </motion.div>
 
@@ -93,7 +93,7 @@ export default function Contact() {
                 <Mail className="text-text-sec group-hover:text-accent-main transition-colors" size={22} />
               </div>
               <div>
-                <h4 className="text-text-main font-bold text-base mb-1">Direct Email</h4>
+                <h4 className="text-text-main font-bold text-base mb-1">Email</h4>
                 <span className="text-text-sec text-sm group-hover:text-accent-main transition-colors">
                   nidhirana929@gmail.com
                 </span>
@@ -112,7 +112,7 @@ export default function Contact() {
                 </svg>
               </div>
               <div>
-                <h4 className="text-text-main font-bold text-base mb-1">Mobile Contact</h4>
+                <h4 className="text-text-main font-bold text-base mb-1">Phone</h4>
                 <span className="text-text-sec text-sm group-hover:text-accent-main transition-colors">
                   +91 7888431735
                 </span>
@@ -131,7 +131,7 @@ export default function Contact() {
                 <Linkedin className="text-text-sec group-hover:text-[#0A66C2] transition-colors" size={22} />
               </div>
               <div>
-                <h4 className="text-text-main font-bold text-base mb-1">Professional Network</h4>
+                <h4 className="text-text-main font-bold text-base mb-1">LinkedIn</h4>
                 <span className="text-text-sec text-sm group-hover:text-[#0A66C2] transition-colors">
                   linkedin.com/in/nidhi-rana-56/
                 </span>
@@ -150,7 +150,7 @@ export default function Contact() {
                 <Github className="text-text-sec group-hover:text-text-main transition-colors" size={22} />
               </div>
               <div>
-                <h4 className="text-text-main font-bold text-base mb-1">Code Repository</h4>
+                <h4 className="text-text-main font-bold text-base mb-1">GitHub</h4>
                 <span className="text-text-sec text-sm group-hover:text-text-main transition-colors">
                   github.com/NidhiRana9
                 </span>
@@ -174,7 +174,7 @@ export default function Contact() {
                   initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
                   className="absolute -top-16 left-0 right-0 bg-green-500/10 border border-green-500/20 text-green-400 p-4 rounded-xl flex items-center justify-center gap-2 backdrop-blur-md shadow-lg"
                 >
-                  <CheckCircle2 size={18} /> Message delivered! I’ll get back to you soon.
+                  <CheckCircle2 size={18} /> Message sent! I’ll get back to you soon.
                 </motion.div>
               )}
               {status === 'error' && (
@@ -188,7 +188,7 @@ export default function Contact() {
             </AnimatePresence>
 
             <div>
-              <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-text-sec mb-3">Full Name</label>
+              <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-text-sec mb-3">Your Name</label>
               <input 
                 type="text" 
                 id="name" 
@@ -196,12 +196,12 @@ export default function Contact() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full bg-background/50 border border-white/10 rounded-xl px-5 py-4 text-sm text-text-main focus:outline-none focus:border-accent-main/50 focus:bg-background/80 transition-all shadow-inner"
-                placeholder="Industry Professional"
+                className="w-full bg-background/50 border border-white/10 rounded-2xl px-5 py-4 text-sm text-text-main focus:outline-none focus:border-accent-main/70 focus:bg-background/80 transition-all shadow-inner hover:border-white/20"
+                placeholder="Enter your name"
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-text-sec mb-3">Corporate Email</label>
+              <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-text-sec mb-3">Email Address</label>
               <input 
                 type="email" 
                 id="email" 
@@ -209,12 +209,12 @@ export default function Contact() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full bg-background/50 border border-white/10 rounded-xl px-5 py-4 text-sm text-text-main focus:outline-none focus:border-accent-main/50 focus:bg-background/80 transition-all shadow-inner"
-                placeholder="inquiry@organization.com"
+                className="w-full bg-background/50 border border-white/10 rounded-2xl px-5 py-4 text-sm text-text-main focus:outline-none focus:border-accent-main/70 focus:bg-background/80 transition-all shadow-inner hover:border-white/20"
+                placeholder="Enter your email"
               />
             </div>
             <div>
-              <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-text-sec mb-3">Inquiry / Objective</label>
+              <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-text-sec mb-3">Your Message</label>
               <textarea 
                 id="message" 
                 name="message"
@@ -222,8 +222,8 @@ export default function Contact() {
                 onChange={handleChange}
                 required
                 rows={4}
-                className="w-full bg-background/50 border border-white/10 rounded-xl px-5 py-4 text-sm text-text-main focus:outline-none focus:border-accent-main/50 focus:bg-background/80 transition-all resize-none shadow-inner"
-                placeholder="State your technical requirements or operational inquiries here."
+                className="w-full bg-background/50 border border-white/10 rounded-2xl px-5 py-4 text-sm text-text-main focus:outline-none focus:border-accent-main/70 focus:bg-background/80 transition-all resize-none shadow-inner hover:border-white/20"
+                placeholder="Write your message here..."
               ></textarea>
             </div>
             <motion.button
@@ -236,12 +236,12 @@ export default function Contact() {
               {status === 'submitting' ? (
                 <>
                   <Loader2 size={18} className="animate-spin" />
-                  Transmitting...
+                  Sending...
                 </>
               ) : (
                 <>
                   <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  Transmit Message
+                  Send Message
                 </>
               )}
             </motion.button>
