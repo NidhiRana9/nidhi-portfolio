@@ -25,7 +25,7 @@ export default function Contact() {
       console.log("Initiating EmailJS transmission...");
 
       // USER NOTE: Replace these 3 parameters with your actual EmailJS keys!
-      const serviceID = 'service_iwu3qav';
+      const serviceID = 'service_vm2kb3o';
       const templateID = 'template_8pcox1l';
       const publicKey = 'gLJbMy7nKryD1KTEY';
 
